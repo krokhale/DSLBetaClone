@@ -1,6 +1,17 @@
+<!DOCTYPE html>
 
+<html>
+  <head>
+     <title>
+        ruby on rails tutorial |<%= @title %>
+     </title>
+  </head>
+  <body>
+     <h1><%= @title %></h1>
      <p>Contact ruby on rails turotial about the sample app at
      <a href="http://www.railsbridgeboston.org/workshop-info#organizers"> contact page</a>
          
      </p> 
-  
+  </body>
+ 
+<html>  
