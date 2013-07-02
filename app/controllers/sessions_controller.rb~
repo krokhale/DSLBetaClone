@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
       render 'new' 
     else
       #sign in the user and open the show page of the user
+      sign_in user
+      redirect_to user
     end
   end
   
@@ -17,6 +19,8 @@ class SessionsController < ApplicationController
   end
   
   def destroy
+    sign_out
+    redirect_to root_path
   end
   
 end
