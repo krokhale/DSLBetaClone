@@ -9,7 +9,9 @@
     <td class="sidebar round">
       <strong>Name</strong> <%=@user.name %><br/>
       <strong>URL</strong>  <%= link_to user_path(@user),@user %><br/>
-      <strong>Actions</strong>  <%= link_to 'Create Lesson',createlesson_path %>
+      <strong>Actions</strong> <br/>
+      <%= link_to 'Create Lesson',createlesson_path %><br/>
+      <%= link_to 'List of Lessons',lessons_path %>
     </td>
   </tr>
 </table>

@@ -3,7 +3,6 @@ class LessonsController < ApplicationController
 
   def index
     @title = "Lessons List"
-    @lessons = Lesson.all
     
   end
   
