@@ -17,7 +17,7 @@ end
 group :development do
    gem 'rspec-rails'
    gem 'annotate'
-   gem 'faker'
+   gem 'faker', :require => false
 end
 group :test do
    gem 'rspec'
