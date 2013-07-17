@@ -9,6 +9,10 @@
           <td class="sidebar round">
               <%= render 'shared/user_info' %>
               <%= render 'shared/stats' %>
+              <strong>
+                <%= link_to "Course Manager",coursecreations_path %>  
+              </strong>
+              
           </td>
         </tr>
       </table>

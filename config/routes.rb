@@ -1,5 +1,8 @@
 SampleApp::Application.routes.draw do
  
+  resources :courses
+  resources :coursemods
+
   resources :users do
     member do
       get :following, :followers

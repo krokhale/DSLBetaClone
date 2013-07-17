@@ -1,5 +1,8 @@
 SampleApp::Application.routes.draw do
  
+  resources :courses
+  resources :course_modules
+
   resources :users do
     member do
       get :following, :followers
@@ -9,6 +12,8 @@ SampleApp::Application.routes.draw do
   resources :lessons
   resources :microposts, :only => [:create,:destroy]
   resources :relationships, :only => [:create, :destroy]
+  
+  
   match '/createlesson', :to => 'lessons#new'
   
   match '/signin', :to => 'sessions#new'

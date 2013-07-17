@@ -1,0 +1,15 @@
+<h2><%= @course.course_name %></h2>
+<h4><%= @course.desc %></h4>
+<table class="profile" summary="profile information">
+  <tr>
+    <td class="main">
+     <%= render 'modules_list' %>
+    </td>
+    <td class="sidebar round">
+       <%= link_to 'New Module?',new_coursemod_path(:cid => @course.id) %><br/>
+    </td>
+  </tr>
+</table>
+
+
+   

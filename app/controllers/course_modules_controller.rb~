@@ -1,0 +1,51 @@
+class CourseModulesController < ApplicationController
+  # editing the course content
+  def edit
+   @course= Course.find(params[:id])
+   @title= "Edit Course"
+  end 
+ 
+  #updating the edited content
+  def update
+    @course = Course.find(params[:id])
+    if @course.update_attributes(params[:course])
+       flash[:success]= "course updated"
+       redirect_to courses_path
+    else
+       @title="Edit Course"
+       flash.now[:error]="something went wrong"
+       render 'edit'
+    end
+  end
+  # method to go to the module page
+  def show
+    @mod = Course_module.find(params[:id])
+    @lessons = @mod.lessons.paginate(:page => params[:page])
+    @title = @mod.module_name;
+  end
+ 
+ # method to render a new form for creating module
+  def new
+    @course= Course.find(params[:cid])
+     @title = "New Module"
+     @mod= Course_module.new
+  end
+
+  def create
+    @mod = @course.course_modules.build(params[:mod]) 
+    if @mod.save
+      flash[:success]= "Successfully created a module"
+      redirect_to @mod
+    else
+      flash.now[:error] = "module not saved"
+      render :action => 'new'
+    end
+  end
+
+  def destroy
+    @course = Course.find(params[:id])
+    @course.destroy
+    redirect_to root_url, :notice => "Successfully destroyed coursecreation."
+  end
+
+end

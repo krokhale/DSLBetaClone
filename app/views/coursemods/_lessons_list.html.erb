@@ -1,0 +1,10 @@
+<% unless @lessons.empty? %>
+  <ul>
+   <% @lessons.each do |lesson| %>
+      <li><strong><%= link_to lesson.name,lesson %></strong> |
+      <%= link_to 'edit',edit_lesson_path(lesson.id) %> |
+      <%= link_to "delete", lesson, :method => :delete, :confirm => "you sure?", :title => lesson.name %></li>
+   <% end %> 
+   <%= will_paginate @lessons %>
+  </ul>
+<% end %> 

@@ -1,0 +1,10 @@
+<% unless @courses.empty? %>
+   <ul>
+   <% @courses.each do |c| %>
+      <li><strong><%= link_to c.course_name,c %></strong> |
+        <%= link_to 'edit',edit_course_path(c.id) %> |
+        <%= link_to "delete", c, :method => :delete, :confirm => "you sure?", :title=> c.course_name %></li>
+   <% end %> 
+   <%= will_paginate @courses %>
+   </ul>
+<% end %> 

@@ -16,6 +16,11 @@ class Lesson < ActiveRecord::Base
 
   attr_accessible :description, :instructions, :name, :solution,:tips
   
+  #data asscoiations
+  has_many :module_lessons, :dependent=>:destroy #this deletes only the associations but not asscoiated objects
+  has_many :coursemods, :through => :module_lessons
+  
+  
   validates :name, :presence => true,
                    :length=>{:maximum=>50}
   validates :description, :presence => true

@@ -1,0 +1,36 @@
+class CoursecreationsController < ApplicationController
+
+
+  def index
+    @title = "Course Manager"
+    @courses = current_user.user_courses # this list can be paginated
+    
+  end 
+  
+ def new
+    @title = "New Course"
+    @course= Course.new
+  end
+
+  def create
+    course = Course.new(params[:course]) 
+    if course.save
+       @coursecreation = current_user.coursecreations.create(:role=>"o",:course_id=>course.id)#role is yet to be coded for collaborators
+       if @coursecreation.save
+         redirect_to coursecreations_path, :notice => "Successfully created coursecreation."
+       else
+         flash[:error] = "course creation not saved"
+         render :action => 'new'
+       end
+    else
+      flash[:error] = "Course is not saved"
+      render :action => 'new'
+    end
+ end
+
+  def destroy
+    @coursecreation = Coursecreation.find(params[:id])
+    @coursecreation.destroy
+    redirect_to root_url, :notice => "Successfully destroyed coursecreation."
+  end
+end

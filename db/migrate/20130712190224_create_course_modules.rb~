@@ -1,0 +1,11 @@
+class CreateCourseModules < ActiveRecord::Migration
+  def change
+    create_table :course_modules do |t|
+      t.string :module_name
+      t.text :module_desc
+      t.integer :course_id
+
+      t.timestamps
+    end
+  end
+end

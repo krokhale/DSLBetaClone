@@ -20,7 +20,13 @@ class User < ActiveRecord::Base
  
   attr_accessible :email, :name, :password, :password_confirmation
   
+ #asscociations with other models
+ 
   has_many :microposts, :dependent => :destroy
+  
+  has_many :coursecreations,:dependent=>:destroy #this deletes only the associations but not asscoiated objects
+  has_many :courses, :through => :coursecreations
+  
   has_many :relationships, :foreign_key => "follower_id",
                            :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
@@ -61,6 +67,12 @@ class User < ActiveRecord::Base
    (user && user.salt == cookie_salt) ? user : nil
   end
   
+  # method for getting the courses of the logged in user
+  def user_courses
+    courses
+  end
+  
+  # method for getting the feeds of the logged in user
   def feed
     Micropost.where("user_id = ?", id)
   end

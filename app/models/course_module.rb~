@@ -1,0 +1,31 @@
+# == Schema Information
+#
+# Table name: course_modules
+#
+#  id          :integer          not null, primary key
+#  module_name :string(255)
+#  module_desc :text
+#  course_id   :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+class CourseModule < ActiveRecord::Base
+  attr_accessible :module_desc, :module_name
+  
+  belongs_to :course
+  
+   #data asscoiations
+  has_many :module_lessons, :dependent=>:destroy #this deletes only the associations but not asscoiated objects
+  has_many :lessons, :through => :module_lessons
+  
+   #data validations
+   validates  :module_name, :presence=>true, 
+                            :uniqueness=>{:case_sensitive=>false}, # doubt here about the name
+                            
+ 
+  validates :module_desc, :presence => true,
+                          :length => {:maximum=>140} 
+  
+ 
+end

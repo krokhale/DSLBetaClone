@@ -1,0 +1,10 @@
+<% unless @modules.empty? %>
+   <ul>
+   <% @modules.each do |mod| %>
+      <li><strong><%= link_to mod.module_name,mod %></strong> |
+        <%= link_to 'edit',edit_coursemod_path(mod.id) %> |
+        <%= link_to "delete", mod, :method => :delete, :confirm => "you sure?", :title=> mod.module_name %></li>
+   <% end %> 
+   <%= will_paginate @modules %>
+   </ul>
+<% end %> 

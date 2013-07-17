@@ -1,0 +1,16 @@
+
+<div class="profile" summary="profile information">
+ 
+     <h4><strong><%= @lesson.name %></strong></h4>
+     <%= @lesson.description %>
+     <strong>Instructions:</strong><%= @lesson.instructions %>
+     <strong>Solution:</strong><%= @lesson.solution %>
+     <strong>Tips: </strong><%= @lesson.tips %><br/>
+    
+    <%= link_to 'back',@coursemod %>
+   
+ 
+</div>
+
+
+   

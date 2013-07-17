@@ -1,0 +1,16 @@
+<h2><%= @coursemod.module_name %></h2>
+<h4><%= @coursemod.module_desc %></h4>
+<table class="profile" summary="profile information">
+  <tr>
+    <td class="main">
+     <strong><%= render 'lessons_list' %></strong>
+    </td>
+    <td class="sidebar round">
+       <%= link_to 'New Lesson?',new_lesson_path(:mid => @coursemod.id) %><br/>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Back',@course %>
+
+   

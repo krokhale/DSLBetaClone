@@ -11,7 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711215425) do
+ActiveRecord::Schema.define(:version => 20130717021634) do
+
+  create_table "coursecreations", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.string   "role"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "coursecreations", ["course_id"], :name => "index_coursecreations_on_course_id"
+  add_index "coursecreations", ["user_id"], :name => "index_coursecreations_on_user_id"
+
+  create_table "coursemods", :force => true do |t|
+    t.string   "module_name"
+    t.text     "module_desc"
+    t.integer  "course_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "coursemods", ["course_id"], :name => "index_coursemods_on_course_id"
+
+  create_table "courses", :force => true do |t|
+    t.string   "course_name"
+    t.string   "technology"
+    t.string   "level"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "desc"
+  end
 
   create_table "lessons", :force => true do |t|
     t.string   "name"
@@ -31,6 +61,16 @@ ActiveRecord::Schema.define(:version => 20130711215425) do
   end
 
   add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"
+
+  create_table "module_lessons", :force => true do |t|
+    t.integer  "module_id"
+    t.integer  "lesson_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "module_lessons", ["lesson_id"], :name => "index_module_lessons_on_lesson_id"
+  add_index "module_lessons", ["module_id"], :name => "index_module_lessons_on_module_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

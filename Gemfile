@@ -18,6 +18,7 @@ group :development do
    gem 'rspec-rails'
    gem 'annotate'
    gem 'faker', :require => false
+   gem 'nifty-generators'
 end
 group :test do
    gem 'rspec'
@@ -52,3 +53,5 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem "mocha", :group => :test
