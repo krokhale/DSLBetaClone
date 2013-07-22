@@ -2,23 +2,29 @@
 #
 # Table name: users
 #
-#  id                 :integer          not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  encrypted_password :string(255)
-#  salt               :string(255)
-#  admin              :boolean          default(FALSE)
+#  id                     :integer          not null, primary key
+#  name                   :string(255)
+#  email                  :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  encrypted_password     :string(255)
+#  salt                   :string(255)
+#  admin                  :boolean          default(FALSE)
+#  confirmation_token     :string(255)
+#  confirmed              :boolean
+#  password_reset_token   :string(255)
+#  password_reset_sent_at :datetime
+#  role                   :string(255)
 #
 
 require 'digest'
 
 class User < ActiveRecord::Base
 
-  attr_accessor :password
+  attr_accessor :password, :skip
  
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation,:role
+   
   
  #asscociations with other models
  
@@ -38,6 +44,7 @@ class User < ActiveRecord::Base
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     
+ #data validations
   validates :name, :presence=>true, 
                    :length=>{:maximum=>50}
  
@@ -49,7 +56,10 @@ class User < ActiveRecord::Base
                        :confirmation => true,
                        :length => {:within => 6..40} 
                        
-  before_save :encrypt_password
+  #  validates :role, :presence => true
+                      
+  before_create :encrypt_password
+  before_save :encrypt_password, :if => :skip
   
   def has_password?(submitted_password)
     #compare encrypted_password with encrypted version of submite password
@@ -87,6 +97,43 @@ class User < ActiveRecord::Base
   
   def unfollow!(followed)
     relationships.find_by_followed_id(followed).destroy
+  end
+  
+  #method to send password reset information
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!(:validate => false)
+    UserMailer.password_reset(self).deliver
+  end
+  
+  #method to send acivation link for signup confirmation
+  def send_confirmation
+    generate_token(:confirmation_token)
+    save!
+    UserMailer.email_confirmation(self).deliver
+  end
+
+  #method to update the confirmed column of user after activating the account
+  def confirm_user
+     self.update_column(:confirmed,true)
+     if self.confirmed
+	   return true
+	 else
+	   return false
+	 end
+  end
+  
+ #this method generates random token for various purposes
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
+  end
+  
+  def reset_password(hash_params)
+     self.skip=true
+     self.update_attributes(hash_params)
   end
   
   private

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: coursemods
+#
+#  id          :integer          not null, primary key
+#  module_name :string(255)
+#  module_desc :text
+#  course_id   :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class Coursemod < ActiveRecord::Base
   attr_accessible  :module_desc, :module_name
   

@@ -1,8 +1,11 @@
 SampleApp::Application.routes.draw do
  
+  get "password_resets/new"
+
   resources :courses
   resources :coursemods
-
+  resources :password_resets
+  
   resources :users do
     member do
       get :following, :followers
@@ -14,6 +17,7 @@ SampleApp::Application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
   
   
+  match '/coursemanager', :to => 'courses#home'
   match '/createlesson', :to => 'lessons#new'
   
   match '/signin', :to => 'sessions#new'

@@ -1,9 +1,13 @@
 <% unless @lessons.empty? %>
   <ul>
    <% @lessons.each do |lesson| %>
-      <li><strong><%= link_to lesson.name,lesson %></strong> |
-      <%= link_to 'edit',edit_lesson_path(lesson.id) %> |
-      <%= link_to "delete", lesson, :method => :delete, :confirm => "you sure?", :title => lesson.name %></li>
+      <li><strong><%= link_to lesson.name,lesson %></strong> 
+      <% if has_permissions_on?('course','e') %>
+        |<%= link_to 'edit',edit_lesson_path(lesson.id) %> 
+      <% end %>
+      <% if has_permissions_on?('course','d') %>
+        |<%= link_to "delete", lesson, :method => :delete, :confirm => "you sure?", :title => lesson.name %></li>
+      <% end %>
    <% end %> 
    <%= will_paginate @lessons %>
   </ul>

@@ -10,7 +10,10 @@
               <%= render 'shared/user_info' %>
               <%= render 'shared/stats' %>
               <strong>
-                <%= link_to "Course Manager",coursecreations_path %>  
+                <% if has_permissions_on('course','c') %>
+                   <%= link_to "Course Manager",coursemanager_path %><br/>
+                <% end %>
+                <%= link_to 'Browse courses',courses_path %>  
               </strong>
               
           </td>

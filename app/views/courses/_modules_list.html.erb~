@@ -1,9 +1,13 @@
 <% unless @modules.empty? %>
    <ul>
    <% @modules.each do |mod| %>
-      <li><strong><%= link_to mod.module_name,mod %></strong>|
-        <%= link_to 'edit',edit_coursemod_path(mod.id) %>|
-        <%= link_to "delete", mod, :method => :delete, :confirm => "you sure?", :title=> mod.module_name %></li>
+      <li><strong><%= link_to mod.module_name,mod %></strong> 
+        <% if has_permissions_on?('course','e') %>
+          |<%= link_to 'edit',edit_coursemod_path(mod.id) %> 
+        <% end %>  
+        <% if has_permissions_on?('course','d') %>
+          |<%= link_to "delete", mod, :method => :delete, :confirm => "you sure?", :title=> mod.module_name %></li>
+         <% end %> 
    <% end %> 
    <%= will_paginate @modules %>
    </ul>

@@ -1,7 +1,8 @@
 class LessonsController < ApplicationController
 
+  efore_filter :authenticate, :only => [:edit,:update,:destroy]
   before_filter :setparam, :only => [:new]
-  before_filter :getparam, :only => [:create,:update,:destroy]
+  before_filter :getparam, :only => [:create,:update,:destroy,:show]
 
   def index
     @title = "Lessons List"

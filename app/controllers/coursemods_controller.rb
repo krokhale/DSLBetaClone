@@ -1,5 +1,7 @@
 class CoursemodsController < ApplicationController
-
+  
+  before_filter :authenticate, :only => [:edit,:update,:destroy]
+  
   before_filter :setparam, :only => [:new]
   before_filter :getparam, :only => [:create,:update,:destroy,:show]
   

@@ -1,10 +1,38 @@
-<% unless @courses.empty? %>
+<table class="profile" summary="profile information">
+  <tr>
+    <td class="main">
+      <div class="user_info">
+        <a href="<%= user_path(current_user)%>">
+           <%= gravatar_for current_user, :size => 30 %>
+           <span class="user_name">
+             <%= current_user.name %>
+           </span>
+       </a>
+     </div>
+     <% unless @courses.empty? %>
    <ul>
    <% @courses.each do |c| %>
-      <li><strong><%= link_to c.course_name,c %></strong> |
-        <%= link_to 'edit',edit_course_path(c.id) %> |
-        <%= link_to "delete", c, :method => :delete, :confirm => "you sure?", :title=> c.course_name %></li>
+      <li><strong><%= link_to c.course_name,c %></strong> 
+      <% if has_permissions_on?('course','e') %>
+        |<%= link_to 'edit',edit_course_path(c.id) %> 
+      <% end %> 
+      <% if has_permissions_on?('course','d') %>
+        |<%= link_to "delete", c, :method => :delete, :confirm => "you sure?", :title=> c.course_name %></li>
+      <% end %>
+        
    <% end %> 
    <%= will_paginate @courses %>
    </ul>
-<% end %> 
+   <% end %> 
+    </td>
+    <% if has_permissions_on?('course','c') %>
+     <td class="sidebar round">
+       <%= link_to 'New Course?',new_course_path %><br/>
+     </td>
+    <% end %> 
+  </tr>
+</table>
+
+
+
+

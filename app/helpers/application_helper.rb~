@@ -14,3 +14,8 @@ module ApplicationHelper
     end
   end
 end
+
+def has_permissions_on?(resource, operation)
+    signed_in? && (session[:permissions][resource].include? operation)
+  end
+

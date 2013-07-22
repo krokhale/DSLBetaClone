@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: module_lessons
+#
+#  id         :integer          not null, primary key
+#  module_id  :integer
+#  lesson_id  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class ModuleLesson < ActiveRecord::Base
   attr_accessible :lesson_id
   

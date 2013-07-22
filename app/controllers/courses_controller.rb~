@@ -1,9 +1,17 @@
 class CoursesController < ApplicationController
-def index
+
+before_filter :authenticate, :only => [:index,:edit,:update,:destroy]
+#before_filter :correct_user, :only => [:edit, :update]
+
+def home
     @title = "Course Manager"
-    @courses = current_user.user_courses.paginate(:page => params[:page], :per_page => 5) # this list can be paginated
-    
-  end 
+    @courses = current_user.user_courses.paginate(:page => params[:page], :per_page => 5) # this list can be paginate
+end
+
+def index
+    @title = "Courses"
+    @courses = Course.paginate(:page => params[:page], :per_page => 5) # this list can be paginated
+end 
   # editing the course content
  def edit
    @course= Course.find(params[:id])
@@ -56,4 +64,10 @@ def index
     @course.destroy
     redirect_to root_url, :notice => "Successfully destroyed coursecreation."
   end
+  
+  private
+     def correct_user
+        @user = User.find(params[:id])
+        redirect_to(root_path) unless current_user?(@user)
+     end
 end

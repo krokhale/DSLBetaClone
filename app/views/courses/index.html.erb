@@ -1,21 +1,7 @@
-<table class="profile" summary="profile information">
-  <tr>
-    <td class="main">
-      <div class="user_info">
-        <a href="<%= user_path(current_user)%>">
-           <%= gravatar_for current_user, :size => 30 %>
-           <span class="user_name">
-             <%= current_user.name %>
-           </span>
-       </a>
-     </div>
-     <%= render 'course_list' %>
-    </td>
-    <td class="sidebar round">
-      <%= link_to 'New Course?',new_course_path %><br/>
-    </td>
-  </tr>
-</table>
+<h1>Listing Courses</h1>
+<%= render 'course_list' %>
+
+
 
 
    

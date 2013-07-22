@@ -5,12 +5,14 @@
     <td class="main">
      <strong><%= render 'lessons_list' %></strong>
     </td>
-    <td class="sidebar round">
-       <%= link_to 'New Lesson?',new_lesson_path(:mid => @coursemod.id) %><br/>
-    </td>
+    <% if has_permissions_on?('course','c') %>
+      <td class="sidebar round">
+         <%= link_to 'New Lesson?',new_lesson_path(:mid => @coursemod.id) %><br/>
+      </td>
+    <% end %>
   </tr>
 </table>
 
-<%= link_to 'Back',new_lesson_path(:mid => @coursemod.id) %>
+<%= link_to 'Back',@course %>
 
    
