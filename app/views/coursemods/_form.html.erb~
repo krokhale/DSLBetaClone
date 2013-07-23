@@ -5,7 +5,7 @@
   </div>
   <div class="field">
     <%= f.label :coursemod_order %><br/>
-    <%= f.text_field :coursemod_order, :placeholder => @coursemod.coursemod_order %>
+    <%= f.text_field :coursemod_order, :placeholder => @coursemod.order %>
   </div>
    <div class="field">
     <%= f.label :module_desc %><br/>

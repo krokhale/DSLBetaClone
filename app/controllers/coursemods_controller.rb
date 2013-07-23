@@ -2,8 +2,10 @@ class CoursemodsController < ApplicationController
   
   before_filter :authenticate, :only => [:edit,:update,:destroy]
   
-  before_filter :setparam, :only => [:new]
-  before_filter :getparam, :only => [:create,:update,:destroy,:show]
+  before_filter :setparam, :only => [:show]
+  before_filter :getparam, :only => [:new,:show,:create,:update,:destroy]
+  
+  before_filter :store_lessons, :only => [:show] 
   
   # editing the module content
   def edit
@@ -34,7 +36,11 @@ class CoursemodsController < ApplicationController
   def new
     #= Course.find(params[:cid])
      @title = "New Module"
-     @coursemod= Coursemod.new
+    order=0
+    if coursemod = Coursemod.where(course_id: @course.id).first
+       order=coursemod.coursemod_order
+    end
+     @coursemod= Coursemod.new(:coursemod_order => (order+1))
   end
 
   def create
@@ -57,10 +63,26 @@ class CoursemodsController < ApplicationController
   private
   
     def getparam
-      @course = Course.find(session[:cid]) 
+      
+      if session[:cid]
+        @course = Course.find(session[:cid]) 
+      else
+        @coursemod = Coursemod.find(params[:id])
+        @course = @coursemod.course 
+      end
     end
     
     def setparam
-      session[:cid] = params[:cid]
+      session[:mid] = params[:id]
+    end
+    
+    def store_lessons
+      @coursemod = Coursemod.find(params[:id])
+      modulars = @coursemod.modularizations
+      lesid_hash={}
+      modulars.each do |mod|
+        lesid_hash[mod.lesson_order]=mod.lesson_id
+      end
+      session[:les_id]=lesid_hash
     end
  end

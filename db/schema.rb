@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719193203) do
+ActiveRecord::Schema.define(:version => 20130723013653) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "role"
@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(:version => 20130719193203) do
     t.string   "module_name"
     t.text     "module_desc"
     t.integer  "course_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "coursemod_order"
   end
 
   add_index "coursemods", ["course_id"], :name => "index_coursemods_on_course_id"
@@ -73,15 +74,24 @@ ActiveRecord::Schema.define(:version => 20130719193203) do
 
   add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"
 
-  create_table "module_lessons", :force => true do |t|
+  create_table "modlessons", :force => true do |t|
     t.integer  "module_id"
     t.integer  "lesson_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "lesson_order"
   end
 
-  add_index "module_lessons", ["lesson_id"], :name => "index_module_lessons_on_lesson_id"
-  add_index "module_lessons", ["module_id"], :name => "index_module_lessons_on_module_id"
+  add_index "modlessons", ["lesson_id"], :name => "index_module_lessons_on_lesson_id"
+  add_index "modlessons", ["module_id"], :name => "index_module_lessons_on_module_id"
+
+  create_table "modularizations", :force => true do |t|
+    t.integer  "module_id"
+    t.integer  "lesson_id"
+    t.integer  "lesson_order"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

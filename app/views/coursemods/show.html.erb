@@ -7,7 +7,7 @@
     </td>
     <% if has_permissions_on?('course','c') %>
       <td class="sidebar round">
-         <%= link_to 'New Lesson?',new_lesson_path(:mid => @coursemod.id) %><br/>
+         <%= link_to 'New Lesson?',new_lesson_path %><br/>
       </td>
     <% end %>
   </tr>

@@ -1,8 +1,8 @@
 class LessonsController < ApplicationController
 
   before_filter :authenticate, :only => [:edit,:update,:destroy]
-  before_filter :setparam, :only => [:new]
-  before_filter :getparam, :only => [:create,:update,:destroy,:show]
+  before_filter :setparam, :only => [:show]
+  before_filter :getparam, :only => [:new,:show,:create,:update,:destroy]
 
   def index
     @title = "Lessons List"
@@ -36,13 +36,13 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(params[:lesson])
     if @lesson.save
       #it is saved succesfully
-      @module_lesson = @coursemod.module_lessons.create(:lesson_id => @lesson.id)
-      if @module_lesson.save
+      @modularization = @coursemod.modularizations.create(:lesson_id => @lesson.id,:lesson_order=>params[:lesson_order])
+      if @modularization.save
         flash[:success] = "Lesson successfully created !"
         redirect_to @coursemod
       else
         flash.now[:error]= "module_lesson not saved"
-        redirect :sction => 'new'
+        render :action => 'new'
       end
     else
        flash.now[:error]= "lesson not saved"
@@ -52,6 +52,10 @@ class LessonsController < ApplicationController
   
   def new
     @title="Create Lesson"
+    @lesson_order=1
+    if modularization = Modularization.where(module_id: @coursemod.id).first
+       @lesson_order=modularization.lesson_order+1
+    end
     @lesson= Lesson.new
   end
   
@@ -64,12 +68,17 @@ class LessonsController < ApplicationController
    private
   
     def getparam
-      @coursemod = Coursemod.find(session[:mid]) 
+      
+      if session[:mid]
+        @coursemod = Coursemod.find(session[:mid]) 
+      else
+        @lesson = Lesson.find(params[:id])
+        @coursemod = Coursemod.find(@lesson.modularizations.first.module_id)
+      end  
     end
     
     def setparam
-      session[:mid] = params[:mid]
-    end 
-  
-  
+      session[:lid] = params[:id]
+    end
+     
 end

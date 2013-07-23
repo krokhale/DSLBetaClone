@@ -1,10 +1,11 @@
 SampleApp::Application.routes.draw do
  
-  get "password_resets/new"
+  get 'password_resets/new'
 
   resources :courses
   resources :coursemods
   resources :password_resets
+  resources :evaluations
   
   resources :users do
     member do
@@ -17,6 +18,7 @@ SampleApp::Application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
   
   
+  match '/solutioncheck', :to => 'evaluations#check'
   match '/coursemanager', :to => 'courses#home'
   match '/createlesson', :to => 'lessons#new'
   

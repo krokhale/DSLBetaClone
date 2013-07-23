@@ -2,15 +2,13 @@
 <div class="profile" summary="profile information">
  
      <h4><strong><%= @lesson.name %></strong></h4>
-     <%= @lesson.description %>
-     <strong>Instructions:</strong><%= @lesson.instructions %>
-     <strong>Solution:</strong><%= @lesson.solution %>
+     <%= @lesson.description %><br/>
+     <strong>Instructions:</strong><%= @lesson.instructions %><br/>
      <strong>Tips: </strong><%= @lesson.tips %><br/>
-    
-    <%= link_to 'back',@coursemod %>
-   
- 
+     
 </div>
+<%= render 'solution_form' %>
+<%= link_to 'back',@coursemod %>
 
 
    

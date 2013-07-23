@@ -3,7 +3,10 @@
     <%= f.label :name %><br/>
     <%= f.text_field :name %>
   </div>
-  
+  <div class="field">
+    <%= label_tag :lesson_order %><br/>
+    <%= text_field_tag :lesson_order,@lesson_order%>
+  </div>
   <div class="field">
     <%= f.label :description %><br/>
     <%= f.text_area :description,:placeholder=>"Write the description" %>

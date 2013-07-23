@@ -5,9 +5,11 @@
     <td class="main">
      <%= render 'modules_list' %>
     </td>
-    <td class="sidebar round">
-       <%= link_to 'New Module?',new_coursemod_path(:cid => @course.id) %><br/>
-    </td>
+    <% if has_permissions_on?('course','c') %>
+      <td class="sidebar round">
+         <%= link_to 'New Module?',new_coursemod_path %><br/>
+      </td>
+    <% end %>
   </tr>
 </table>
 

@@ -5,7 +5,7 @@
       <% if has_permissions_on?('course','e') %>
         |<%= link_to 'edit',edit_lesson_path(lesson.id) %> 
       <% end %>
-      <% if has_permissions_on?('course','e') %>
+      <% if has_permissions_on?('course','d') %>
         |<%= link_to "delete", lesson, :method => :delete, :confirm => "you sure?", :title => lesson.name %></li>
       <% end %>
    <% end %> 

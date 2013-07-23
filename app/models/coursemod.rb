@@ -2,21 +2,25 @@
 #
 # Table name: coursemods
 #
-#  id          :integer          not null, primary key
-#  module_name :string(255)
-#  module_desc :text
-#  course_id   :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id              :integer          not null, primary key
+#  module_name     :string(255)
+#  module_desc     :text
+#  course_id       :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  coursemod_order :integer
 #
 
 class Coursemod < ActiveRecord::Base
-  attr_accessible  :module_desc, :module_name
+  attr_accessor :skip
+  attr_accessible  :module_desc, :module_name,:coursemod_order
   
   belongs_to :course
   
-  has_many :module_lessons, :foreign_key=>"module_id",:dependent => :destroy
-  has_many :lessons, :through=>:module_lessons
+  has_many :modularizations, :foreign_key=>"module_id",:dependent => :destroy
+  has_many :lessons, :through=>:modularizations
+  
+  default_scope :order=> 'coursemods.coursemod_order DESC'
   
   # data validations
   
@@ -25,6 +29,37 @@ class Coursemod < ActiveRecord::Base
                             :length => {:maximum=>30} 
   validates  :module_desc, :presence=>true, 
                            :length => {:maximum=>140} 
- 
+  
+  validate :order_of_modules, :unless=>:skip                           
+  before_validation :reordering_modules, :on=>:create
+  
+  def order_of_modules
+    errors.add(:coursemod_order, "the module already exists. PLease specify another order number") if order_already_exists?(self.coursemod_order)
+  end  
+  
+  private
+  
+    def reordering_modules
+      self.skip=true 
+      order_id = self.coursemod_order
+      max_order=0
+      if coursemod =Coursemod.where(course_id: (self.course.id)).first
+        max_order=coursemod.coursemod_order
+      end
+      if order_id>max_order
+         #self.update_attributes(:coursemod_order=>(max_order+1))
+         self.coursemod_order=(max_order+1)
+      elsif order_already_exists?(order_id) 
+         to_be_reordered= Coursemod.where("course_id = ? AND coursemod_order >= ?",self.course.id,order_id) 
+         to_be_reordered.each do |mod|
+           mod.update_attributes(:coursemod_order=>(mod.coursemod_order+1))
+      end
+           
+     end
+    end
+    
+    def order_already_exists?(order_id)
+      Coursemod.where(course_id: (self.course.id)).exists?(:coursemod_order => order_id)
+    end
  
 end
