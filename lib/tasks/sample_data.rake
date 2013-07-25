@@ -5,6 +5,7 @@ namespace :db do
     require 'faker'
     Rake::Task['db:reset'].invoke
     make_users
+    make_authorizations
     make_microposts
     make_relationships
   end
@@ -26,6 +27,21 @@ def make_users
                  password_confirmation: password)
   end
 end
+
+def make_authorizations
+  Authorization.create!(role:     "admin",
+                        course :    "v,e,d",
+                        user: "v,e,d",
+                        micropost: "v,e,d")
+  Authorization.create!(role:     "user",
+                        course :    "v",
+                        user: "v,e,d",
+                        micropost: "d")
+  Authorization.create!(role:     "c_creator",
+                        course :    "c,v,e,d",
+                        user: "v",
+                        micropost: "v,e,d")
+end 
 
 def make_microposts
   users = User.all(limit: 6).each do |user|
