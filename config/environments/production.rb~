@@ -29,7 +29,8 @@ SampleApp::Application.configure do
   :user_name            => 'pushyami.kaveti@novedea.com',
   :password             => '24-Aug-1990',
   :authentication       => 'plain',
-  :enable_starttls_auto => true  }
+  :enable_starttls_auto => true,
+  :openssl_verify_mode  => 'none'}
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
