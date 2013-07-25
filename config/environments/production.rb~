@@ -19,6 +19,17 @@ SampleApp::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+  
+  # Basic mailer settings
+  config.action_mailer.default_url_options = { :host => "polar-crag-3765.herokuapp.com" }
+  config.action_mailer.smtp_settings = {
+  :address              => "smtp.gmail.com",
+  :port                 => 587,
+  :domain               => 'www.gmail.com',
+  :user_name            => 'pushyami.vn371@gmail.com',
+  :password             => 'kaveti1990',
+  :authentication       => 'plain',
+  :enable_starttls_auto => true  }
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
