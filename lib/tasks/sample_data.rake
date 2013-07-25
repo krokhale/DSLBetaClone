@@ -29,16 +29,15 @@ def make_users
 end
 
 def make_authorizations
-  Authorization.create!(role:     "admin",
-                        course :    "v,e,d",
+  Authorization.create!(role: "admin",course: "v,e,d",
                         user: "v,e,d",
                         micropost: "v,e,d")
-  Authorization.create!(role:     "user",
-                        course :    "v",
+  Authorization.create!(role: "user",
+                        course: "v",
                         user: "v,e,d",
                         micropost: "d")
-  Authorization.create!(role:     "c_creator",
-                        course :    "c,v,e,d",
+  Authorization.create!(role: "c_creator",
+                        course: "c,v,e,d",
                         user: "v",
                         micropost: "v,e,d")
 end 
