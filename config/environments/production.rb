@@ -23,11 +23,11 @@ SampleApp::Application.configure do
   # Basic mailer settings
   config.action_mailer.default_url_options = { :host => "polar-crag-3765.herokuapp.com" }
   config.action_mailer.smtp_settings = {
-  :address              => "smtp.gmail.com",
+  :address              => "smtp.novedea.com",
   :port                 => 587,
-  :domain               => 'www.gmail.com',
-  :user_name            => 'pushyami.vn371@gmail.com',
-  :password             => 'kaveti1990',
+  :domain               => 'www.novedea.com',
+  :user_name            => 'pushyami.kaveti@novedea.com',
+  :password             => '24-Aug-1990',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
 
