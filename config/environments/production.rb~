@@ -23,7 +23,7 @@ SampleApp::Application.configure do
   # Basic mailer settings
   config.action_mailer.default_url_options = { :host => "polar-crag-3765.herokuapp.com" }
   config.action_mailer.smtp_settings = {
-  :address              => "smtp.novedea.com",
+  :address              => "mail.novedea.com",
   :port                 => 587,
   :domain               => 'www.novedea.com',
   :user_name            => 'pushyami.kaveti@novedea.com',
