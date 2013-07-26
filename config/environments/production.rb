@@ -26,8 +26,8 @@ SampleApp::Application.configure do
   :address              => "mail.novedea.com",
   :port                 => 587,
   :domain               => 'www.novedea.com',
-  :user_name            => 'pushyami.kaveti@novedea.com',
-  :password             => '24-Aug-1990',
+  :user_name            => 'dsl@novedea.com',
+  :password             => 'drive2020',
   :authentication       => 'plain',
   :enable_starttls_auto => true,
   :openssl_verify_mode  => 'none'}

@@ -10,6 +10,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  tips         :text
+#  messages     :text
 #
 
 require 'spec_helper'
