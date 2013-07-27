@@ -14,7 +14,7 @@
 #
 
 class Lesson < ActiveRecord::Base
-
+  serialize :messages, Hash
   attr_accessible :description, :instructions, :name, :solution,:tips,:order
   
   #data asscoiations

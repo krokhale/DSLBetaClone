@@ -1,0 +1,59 @@
+<script>
+// function to get the selected content . works fine in firefox and IE
+function getSel()
+{
+var textarea = document.getElementById("lesson_solution");
+var start = textarea.selectionStart;
+var end = textarea.selectionEnd;
+var sel = textarea.value.substring(start, end);
+return sel;
+}
+
+// function for storing the selected text
+
+$(document).ready(function(){
+  var selected = "";
+  var count=0;
+  $("#lesson_solution").select(function(){
+    selected = getSel();
+    alert(selected);
+  });
+   
+// function to add validation to the selected text   
+  $("#validate").click(function(){
+    count=count+1;
+    $("#to-populate").append("<li><div class='flip' id='"+count+"'>"+selected+"</div><div class='panel' id='val-"+count+"'><textarea name='"+selected+"'></textarea></div></li>");
+    var temp = $("#sol_validations").val()+selected+",";
+    $("#sol_validations").val(temp); 
+  }); 
+  
+// function to slide down and up the editing area for validation  
+  $("ul").on("click", ".flip", function(){
+    var ide = "val-"+$(this).attr('id');
+    $("#"+ide).slideToggle("slow");
+  });
+  
+});
+</script>
+<table>
+  <tr>
+     <td>
+       <%= f.label :solution %><br/>
+       <%= f.text_area :solution, :placeholder=>"Write the solution here" %> 
+     </td>
+     <td>
+       <%= hidden_field_tag :sol_validations %>
+       <ul id="to-populate">
+       </ul>
+       <button id="validate" type="button">Add Validation</button>
+       <p>select text to add validation</p>
+     </td>
+  </tr>
+</table>
+   
+ 
+
+
+
+
+

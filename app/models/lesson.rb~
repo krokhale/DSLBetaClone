@@ -10,10 +10,11 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  tips         :text
+#  messages     :text
 #
 
 class Lesson < ActiveRecord::Base
-
+  serialize :messages, Hash
   attr_accessible :description, :instructions, :name, :solution,:tips,:order
   
   #data asscoiations

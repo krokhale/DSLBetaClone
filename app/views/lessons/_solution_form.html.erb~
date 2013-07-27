@@ -1,11 +1,11 @@
-<%= form_tag solutioncheck_path,:method=>:post do %>
+<%= form_tag solutioncheck_path,:method=>:post, :id => 'sol_form' do %>
   <div class="field">
     <%= text_area_tag :solution,"",:placeholder=>"Please enter the solution here.." %>
   </div>
   <div class="actions">
     <table>
       <tr>
-        <td><%= link_to 'Next Lesson',lesson_path(next_lesson_id) %></td>
+        <td><%= link_to 'Prev Lesson',lesson_path(prev_lesson_id) %></td>
         <td> <%= submit_tag "Submit" %></td>
         <td><%= link_to 'Next Lesson',lesson_path(next_lesson_id) %></td>
       </tr>

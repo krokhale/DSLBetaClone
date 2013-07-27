@@ -21,5 +21,9 @@ module LessonsHelper
   def get_order
     Modularization.where("module_id = ? AND lesson_id = ?",session[:mid],session[:lid]).first.lesson_order
   end
+  
+  def add_tags
+    count=count+1
+  end
 end
 

@@ -34,6 +34,14 @@ class LessonsController < ApplicationController
   
   def create
     @lesson = Lesson.new(params[:lesson])
+    get_validation_names=params[:sol_validations].split(',')
+    mesg_hash={}
+    get_validation_names.each do |name|
+      if params[name.to_sym]
+        mesg_hash[name] =  params[name.to_sym]
+      end
+    end
+    @lesson.messages = mesg_hash
     if @lesson.save
       #it is saved succesfully
       @modularization = @coursemod.modularizations.create(:lesson_id => @lesson.id,:lesson_order=>params[:lesson_order])
