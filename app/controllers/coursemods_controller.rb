@@ -16,7 +16,8 @@ class CoursemodsController < ApplicationController
   #updating the edited content
   def update
     @coursemod = Coursemod.find(params[:id])
-    if @coursemod.update_attributes(params[:coursemod])
+    #if @coursemod.update_attributes(params[:coursemod])
+    if @coursemod.update_coursemod(params[:coursemod])
        flash[:success]= "Module updated"
        redirect_to @course
     else

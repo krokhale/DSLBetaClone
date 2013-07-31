@@ -10,13 +10,16 @@ class CoursemodsController < ApplicationController
   # editing the module content
   def edit
    @coursemod= Coursemod.find(params[:id])
+   #this might be changed when jquery reorderable list is placed
+   #session[:cmod_ord] = @coursemod.coursemod_order
    @title= "Edit Module"
   end 
  
   #updating the edited content
   def update
     @coursemod = Coursemod.find(params[:id])
-    if @coursemod.update_attributes(params[:coursemod])
+    #if @coursemod.update_attributes(params[:coursemod])
+    if @coursemod.update_coursemod(params[:coursemod])
        flash[:success]= "Module updated"
        redirect_to @course
     else

@@ -30,15 +30,47 @@ class Coursemod < ActiveRecord::Base
   validates  :module_desc, :presence=>true, 
                            :length => {:maximum=>140} 
   
-  validate :order_of_modules, :unless=>:skip                           
+  #validate :order_of_modules, :unless=>:skip                           
   before_validation :reordering_modules, :on=>:create
-  
+   
   def order_of_modules
     errors.add(:coursemod_order, "the module already exists. PLease specify another order number") if order_already_exists?(self.coursemod_order)
   end  
   
-  private
+  def update_coursemod(params)
+    reorder_edit(params)
+    self.update_attributes(params)
+  end
   
+  private
+    
+    def reorder_edit(params)
+      old_order = self.coursemod_order
+      max_order=0
+      if coursemod =Coursemod.where(course_id: (self.course.id)).first
+        max_order=coursemod.coursemod_order
+      end
+      if params[:coursemod_order].to_i > max_order
+         params[:coursemod_order] = max_order.to_s
+      end
+      if params[:coursemod_order].to_i > old_order
+         to_be_reordered= Coursemod.where("course_id = ? AND coursemod_order > ? AND coursemod_order <= ?",self.course.id,old_order,params[:coursemod_order].to_i) 
+         to_be_reordered.each do |mod|
+           mod.update_attributes(:coursemod_order=>(mod.coursemod_order-1))
+         end 
+      elsif params[:coursemod_order].to_i < old_order
+        to_be_reordered= Coursemod.where("course_id = ? AND coursemod_order < ? AND coursemod_order >= ?",self.course.id,old_order,params[:coursemod_order].to_i) 
+         to_be_reordered.each do |mod|
+           mod.update_attributes(:coursemod_order=>(mod.coursemod_order+1))
+         end 
+      else
+         
+      end
+      
+    end    
+    
+    
+    
     def reordering_modules
       self.skip=true 
       order_id = self.coursemod_order
@@ -56,6 +88,7 @@ class Coursemod < ActiveRecord::Base
       end
            
      end
+    
     end
     
     def order_already_exists?(order_id)
