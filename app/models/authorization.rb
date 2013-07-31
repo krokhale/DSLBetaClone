@@ -12,7 +12,7 @@
 #
 
 class Authorization < ActiveRecord::Base
-   #attr_accessible :course, :micropost, :role, :user
+   attr_accessible :course, :micropost, :role, :user
    
   
    #method for getting the permissions of a particular user
