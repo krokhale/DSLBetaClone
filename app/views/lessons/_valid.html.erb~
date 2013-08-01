@@ -15,6 +15,15 @@ $(document).ready(function(){
   var selected = "";
   var count=0;
   
+  //populate list with existing validations
+  var temp = $("#sol_validations").val().split(",");
+    for(x in temp){
+       if(x!=0){
+       count=count+1;
+    $("#to-populate").append("<li id='list-"+count+"'><div class='flip'><label class='flip' id='"+count+"'>"+temp[x]+"</label><button class='delete' id='del-"+count+"' type='button'>delete</button></div><div class='panel' id='val-"+count+"'><textarea id='text-"+count+"' name='"+temp[x]+"'></textarea></div></li>");
+     }
+    }
+ 
   $("#lesson_solution").select(function(){
     selected = getSel();
     alert(selected);
@@ -31,9 +40,10 @@ $(document).ready(function(){
        }
     }
     count=count+1;
-    $("#to-populate").append("<li id='list-"+count+"'><div class='flip' id='"+count+"'>"+selected+"</div><button class='delete' id='del-"+count+"' type='button'>delete</button><div class='panel' id='val-"+count+"'><textarea name='"+selected+"'></textarea></div></li>");
+    $("#to-populate").append("<li id='list-"+count+"'><div class='flip' id='"+count+"'>"+selected+"</div><button class='delete' id='del-"+count+"' type='button'>delete</button><div class='panel' id='val-"+count+"'><textarea id='text-"+count+"' name='"+selected+"'></textarea></div></li>");
     var hid_val = $("#sol_validations").val()+","+selected;
-    $("#sol_validations").val(hid_val); 
+    $("#sol_validations").val(hid_val);
+    
   }); 
   
 // function to slide down and up the editing area for validation  
