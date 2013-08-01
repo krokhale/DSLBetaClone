@@ -3,6 +3,7 @@ class LessonsController < ApplicationController
   before_filter :authenticate, :only => [:edit,:update,:destroy]
   before_filter :setparam, :only => [:show]
   before_filter :getparam, :only => [:new,:show,:create,:update,:destroy]
+  after_filter  :setorder,:only => [:new]
 
   def index
     @title = "Lessons List"
@@ -44,7 +45,8 @@ class LessonsController < ApplicationController
     @lesson.messages = mesg_hash
     if @lesson.save
       #it is saved succesfully
-      @modularization = @coursemod.modularizations.create(:lesson_id => @lesson.id,:lesson_order=>params[:lesson_order])
+      order = params[:lesson_order].to_i != 0 ? params[:lesson_order] : session[:les_ord]
+      @modularization = @coursemod.modularizations.create(:lesson_id => @lesson.id,:lesson_order=>order)
       if @modularization.save
         flash[:success] = "Lesson successfully created !"
         redirect_to @coursemod
@@ -61,7 +63,7 @@ class LessonsController < ApplicationController
   def new
     @title="Create Lesson"
     @lesson_order=1
-    if modularization = Modularization.where(module_id: @coursemod.id).first
+    if modularization = Modularization.where(:module_id => @coursemod.id).first
        @lesson_order=modularization.lesson_order+1
     end
     @lesson= Lesson.new
@@ -75,6 +77,10 @@ class LessonsController < ApplicationController
   
    private
   
+    def setorder
+       session[:les_ord]= @lesson_order
+    end
+    
     def getparam
       
       if session[:mid]
