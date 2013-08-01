@@ -14,6 +14,7 @@ return sel;
 $(document).ready(function(){
   var selected = "";
   var count=0;
+  
   $("#lesson_solution").select(function(){
     selected = getSel();
     alert(selected);
@@ -21,16 +22,41 @@ $(document).ready(function(){
    
 // function to add validation to the selected text   
   $("#validate").click(function(){
+    selected = $.trim(selected);
+    var temp = $("#sol_validations").val().split(",");
+    for(x in temp){
+      if(temp[x] == selected){
+          alert("Cannot add validation. It is aleady added");
+          return;
+       }
+    }
     count=count+1;
-    $("#to-populate").append("<li><div class='flip' id='"+count+"'>"+selected+"</div><div class='panel' id='val-"+count+"'><textarea name='"+selected+"'></textarea></div></li>");
-    var temp = $("#sol_validations").val()+selected+",";
-    $("#sol_validations").val(temp); 
+    $("#to-populate").append("<li id='list-"+count+"'><div class='flip' id='"+count+"'>"+selected+"</div><button class='delete' id='del-"+count+"' type='button'>delete</button><div class='panel' id='val-"+count+"'><textarea name='"+selected+"'></textarea></div></li>");
+    var hid_val = $("#sol_validations").val()+","+selected;
+    $("#sol_validations").val(hid_val); 
   }); 
   
 // function to slide down and up the editing area for validation  
   $("ul").on("click", ".flip", function(){
     var ide = "val-"+$(this).attr('id');
     $("#"+ide).slideToggle("slow");
+  });
+// function to delete the validation
+  
+  $("ul").on("click", ".delete", function(){
+    var ide = $(this).attr('id').split("-");
+    var to_remove = $("#"+ide[1]).text();
+    $("#list-"+ide[1]).remove();
+    var temp = $("#sol_validations").val().split(",");
+    var new_temp;
+    for(x in temp){
+       alert(temp[x]);
+       if(temp[x] == to_remove)
+          continue;
+       new_temp = new_temp+","+x;
+    }
+    $("#sol_validations").val(new_temp); 
+    
   });
   
 });
