@@ -18,7 +18,7 @@ $(document).ready(function(){
   //populate list with existing validations
   var temp = $("#sol_validations").val().split(",");
     for(x in temp){
-       if(x!=0){
+       if(temp[x]!=""){
        count=count+1;
     $("#to-populate").append("<li id='list-"+count+"'><div class='flip'><label class='flip' id='"+count+"'>"+temp[x]+"</label><button class='delete' id='del-"+count+"' type='button'>delete</button></div><div class='panel' id='val-"+count+"'><textarea id='text-"+count+"' name='"+temp[x]+"'></textarea></div></li>");
      }
@@ -40,7 +40,7 @@ $(document).ready(function(){
        }
     }
     count=count+1;
-    $("#to-populate").append("<li id='list-"+count+"'><div class='flip' id='"+count+"'>"+selected+"</div><button class='delete' id='del-"+count+"' type='button'>delete</button><div class='panel' id='val-"+count+"'><textarea id='text-"+count+"' name='"+selected+"'></textarea></div></li>");
+    $("#to-populate").append("<li id='list-"+count+"'><div class='flip'><label class='flip' id='"+count+"'>"+selected+"</label><button class='delete' id='del-"+count+"' type='button'>delete</button></div><div class='panel' id='val-"+count+"'><textarea id='text-"+count+"' name='"+selected+"'></textarea></div></li>");
     var hid_val = $("#sol_validations").val()+","+selected;
     $("#sol_validations").val(hid_val);
     
@@ -58,34 +58,40 @@ $(document).ready(function(){
     var to_remove = $("#"+ide[1]).text();
     $("#list-"+ide[1]).remove();
     var temp = $("#sol_validations").val().split(",");
-    var new_temp;
+    var new_temp="";
     for(x in temp){
        alert(temp[x]);
-       if(temp[x] == to_remove)
+       if(temp[x] == to_remove || temp[x]=="")
           continue;
-       new_temp = new_temp+","+x;
+       new_temp = new_temp+","+temp[x];
     }
     $("#sol_validations").val(new_temp); 
     
   });
   
+  $("#les-instruction-label").click(function(){
+    $("#les-instruction").slideToggle("slow");
+    $("#les-tips").slideToggle("slow");
+  });
+  
+  $("#les-tips-label").click(function(){
+    $("#les-instruction").slideToggle("slow");
+    $("#les-tips").slideToggle("slow");
+  });
+  
 });
 </script>
-<table>
-  <tr>
-     <td>
-       <%= f.label :solution %><br/>
-       <%= f.text_area :solution, :placeholder=>"Write the solution here" %> 
-     </td>
-     <td>
-       <%= hidden_field_tag :sol_validations %>
-       <ul id="to-populate">
-       </ul>
-       <button id="validate" type="button">Add Validation</button>
-       <p>select text to add validation</p>
-     </td>
-  </tr>
-</table>
+  <div class="editor">
+    <%= f.label :solution %><br/>
+    <%= f.text_area :solution, :placeholder=>"Write the solution here" %> 
+  </div>
+  <div class="validation">  
+    <%= hidden_field_tag :sol_validations %>
+    <ul id="to-populate">
+    </ul>
+    <button id="validate" type="button">Add Validation</button>
+    <p>select text to add validation</p>
+  </div>
    
  
 

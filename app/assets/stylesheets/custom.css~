@@ -1,5 +1,5 @@
 .container {
-  width: 710px;
+  width: 910px;
 }
 
 body {
@@ -124,7 +124,7 @@ footer {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
-  width: 710px;
+  
 }
 
 footer nav {
@@ -162,7 +162,7 @@ td.sidebar {
 
 div.field, div.actions {
 
-  margin-botton: 10px;
+  margin-bottom: 10px;
 }
 
 /*Error section*/
@@ -304,12 +304,57 @@ padding:50px;
 display:none;
 }
 
+/*Styling for Lesson form*/
 
+div.lesson-header{
 
+  width:100%;
+  
+}
 
+div.editor-validation{
 
+  height:500px;
+  width:60%;
+  float:left;
+}
 
+div.instruction-tips{
 
+  height:500px;
+  width:40%;
+  float:left;
+}
+
+div.editor{
+
+  height:50%;
+}
+
+div.validation{
+  
+  height:50%;
+}
+
+div.instruction-tips #les-tips{
+
+   display:none;
+}
+
+textarea {
+display:block;
+width:95%;
+height:100%;
+padding:0.5%;
+margin:4;
+border:1px solid #f0f040;
+overflow:auto;
+}
+
+#lesson_description{
+
+ height:55px;
+}
 
 
 

@@ -1,7 +1,9 @@
 <h1>Create Lesson</h1>
+<div style="width:100%">
 <%= form_for(@lesson) do |f| %>
   <%= render 'form', :f => f %>
- <div class="actions">
+ <div>
     <%= f.submit "Save" %>
-  </div>
+ </div>
 <% end %>
+</div>
