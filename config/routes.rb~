@@ -13,7 +13,9 @@ SampleApp::Application.routes.draw do
     end
   end
   resources :sessions, :only=> [:new,:create,:destroy]
-  resources :lessons
+  resources :lessons do
+    collection {post :import}
+  end
   resources :microposts, :only => [:create,:destroy]
   resources :relationships, :only => [:create, :destroy]
   

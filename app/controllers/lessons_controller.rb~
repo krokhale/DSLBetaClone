@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
 
   before_filter :authenticate, :only => [:edit,:update,:destroy]
   before_filter :setparam, :only => [:show]
-  before_filter :getparam, :only => [:new,:show,:create,:update,:destroy]
+  before_filter :getparam, :only => [:new,:show,:create,:update,:destroy,:import]
   after_filter  :setorder,:only => [:new]
 
   def index
@@ -75,7 +75,58 @@ class LessonsController < ApplicationController
     redirect_to @coursemod, :notice => "Successfully destroyed lesson."
   end
   
+  def import
+    #Lesson.import(params[:file])
+    file= params[:file]
+    order = next_lesson_order
+    spreadsheet = open_spreadsheet(file)
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header,spreadsheet.row(i)].transpose]
+      parameters = row.to_hash 
+      mesg_str = parameters.delete("messages")
+      mesg_arr = mesg_str.split("|")
+      mesg_hash = {}
+      mesg_arr.each do |m|
+        h = m.split(":")
+        unless h[1].empty?
+          mesg_hash[h[0]]=h[1];
+        end  
+      end
+      lesson = Lesson.create! parameters
+      if lesson
+        lesson.messages = mesg_hash
+        lesson.save
+        modularization = @coursemod.modularizations.create(:lesson_id => lesson.id,:lesson_order=>order)
+        if modularization.save
+                 
+        else
+          to_del = Lesson.find(lesson.id)
+          to_del.destroy
+        end
+      end
+    end 
+      redirect_to @coursemod, :notice => "Successfully uploaded lessons"
+  end
+  
    private
+   
+     def next_lesson_order 
+       order=1
+       if modularization = Modularization.where(:module_id => @coursemod.id).first
+         order=modularization.lesson_order+1
+       end
+       return order
+     end
+     
+    def open_spreadsheet(file)
+      case File.extname(file.original_filename)
+      when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
+      when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
+      when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
+      else raise "Unknown file type: #{file.original_filename}"
+     end
+    end
   
     def setorder
        session[:les_ord]= @lesson_order
