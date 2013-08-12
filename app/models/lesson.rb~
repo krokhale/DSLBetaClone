@@ -9,8 +9,7 @@
 #
 
 class Lesson < ActiveRecord::Base
-  
-  
+    
   attr_accessible :name
   #data asscoiations
   has_many :modularizations, :dependent=>:destroy #this deletes only the associations but not asscoiated objects

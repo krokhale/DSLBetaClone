@@ -1,4 +1,4 @@
-SampleApp::Application.routes.draw do
+Dslbeta::Application.routes.draw do
  
   resources :authentications
   get 'password_resets/new'
