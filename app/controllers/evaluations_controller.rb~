@@ -2,7 +2,7 @@ class EvaluationsController < ApplicationController
 
  # Check and display the results of the evaluation of the solution
   def check
-     @lesson=Lesson.find(session[:lid])
+     @lesson=Lcontent.find_by(:lid => session[:lid])
      if params[:solution]
        eval = solution_correct?
          if eval == true
@@ -22,7 +22,7 @@ class EvaluationsController < ApplicationController
        else
          flash[:notice]="empty"
        end 
-     redirect_to @lesson     
+     redirect_to lcontent_path(@lesson.lid)     
   end
   
 private
@@ -33,7 +33,7 @@ private
     current.gsub!(/\/\*[\w\s]*\*\//,"") 
     current.gsub!(/--.*\n/,"")
     existing =  format_str(@lesson.solution.strip)
-    current = format_str(current)
+    current = format_str(current.strip)
     if existing == current
       return true
     else

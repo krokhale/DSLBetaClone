@@ -4,10 +4,11 @@ gem 'rails', '3.2.13'
 gem 'gravatar_image_tag'
 gem 'will_paginate'
 gem 'roo'
+gem 'mongoid'
 
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-# Bundle edge Rails instead:
+# Bundle edge Rails instead
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
  gem 'faker', :require => false
 group :development do

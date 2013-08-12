@@ -8,6 +8,10 @@ SampleApp::Application.routes.draw do
   resources :coursemods
   resources :password_resets
   resources :evaluations
+  #changed
+  resources :lcontents do
+    collection {post :import}
+  end
   
   resources :users do
     member do
@@ -15,16 +19,15 @@ SampleApp::Application.routes.draw do
     end
   end
   resources :sessions, :only=> [:new,:create,:destroy]
-  resources :lessons do
-    collection {post :import}
-  end
+  resources :lessons 
   resources :microposts, :only => [:create,:destroy]
   resources :relationships, :only => [:create, :destroy]
   
   
   match '/solutioncheck', :to => 'evaluations#check'
   match '/coursemanager', :to => 'courses#home'
-  match '/createlesson', :to => 'lessons#new'
+  # changed
+  match '/createlesson', :to => 'lcontents#new'
   
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'

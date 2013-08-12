@@ -1,7 +1,3 @@
-<script>
-  // function to slide down and up the instrcutions and tips alternatively for validation  
-  
-</script>
 
 <%= render 'shared/error_messages', :object=> f.object %>
   <div class="lesson-header"> 

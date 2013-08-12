@@ -15,8 +15,8 @@
 
 class Lesson < ActiveRecord::Base
   serialize :messages, Hash
-  attr_accessible :description, :instructions, :name, :solution,:tips,:order,:messages
-  
+  #attr_accessible :description, :instructions, :name, :solution,:tips,:order,:messages
+  attr_accessible :name
   #data asscoiations
   has_many :modularizations, :dependent=>:destroy #this deletes only the associations but not asscoiated objects
   has_many :coursemods, :through => :modularizations
@@ -24,9 +24,9 @@ class Lesson < ActiveRecord::Base
   
   validates :name, :presence => true,
                    :length=>{:maximum=>50}
-  validates :description, :presence => true
-  validates :instructions, :presence => true
-  validates :solution, :presence => true 
+  #validates :description, :presence => true
+  #validates :instructions, :presence => true
+  #validates :solution, :presence => true 
   
   def self.import(file)
     CSV.foreach(file.path,:headers => true) do |row|

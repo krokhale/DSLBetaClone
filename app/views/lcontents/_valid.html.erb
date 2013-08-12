@@ -1,0 +1,101 @@
+<script>
+// function to get the selected content . works fine in firefox and IE
+function getSel()
+{
+var textarea = document.getElementById("lesson_solution");
+var start = textarea.selectionStart;
+var end = textarea.selectionEnd;
+var sel = textarea.value.substring(start, end);
+return sel;
+}
+
+// function for storing the selected text
+
+$(document).ready(function(){
+  var selected = "";
+  var count=0;
+  
+  //populate list with existing validations
+  var temp = $("#sol_validations").val().split(",");
+    for(x in temp){
+       if(temp[x]!=""){
+       count=count+1;
+    $("#to-populate").append("<li id='list-"+count+"'><div class='flip'><label class='flip' id='"+count+"'>"+temp[x]+"</label><button class='delete' id='del-"+count+"' type='button'>delete</button></div><div class='panel' id='val-"+count+"'><textarea id='text-"+count+"' name='"+temp[x]+"'></textarea></div></li>");
+     }
+    }
+ 
+  $("#lesson_solution").select(function(){
+    selected = getSel();
+    alert(selected);
+  });
+   
+// function to add validation to the selected text   
+  $("#validate").click(function(){
+    selected = $.trim(selected);
+    var temp = $("#sol_validations").val().split(",");
+    for(x in temp){
+      if(temp[x] == selected){
+          alert("Cannot add validation. It is aleady added");
+          return;
+       }
+    }
+    count=count+1;
+    $("#to-populate").append("<li id='list-"+count+"'><div class='flip'><label class='flip' id='"+count+"'>"+selected+"</label><button class='delete' id='del-"+count+"' type='button'>delete</button></div><div class='panel' id='val-"+count+"'><textarea id='text-"+count+"' name='"+selected+"'></textarea></div></li>");
+    var hid_val = $("#sol_validations").val()+","+selected;
+    $("#sol_validations").val(hid_val);
+    
+  }); 
+  
+// function to slide down and up the editing area for validation  
+  $("ul").on("click", ".flip", function(){
+    var ide = "val-"+$(this).attr('id');
+    $("#"+ide).slideToggle("slow");
+  });
+// function to delete the validation
+  
+  $("ul").on("click", ".delete", function(){
+    var ide = $(this).attr('id').split("-");
+    var to_remove = $("#"+ide[1]).text();
+    $("#list-"+ide[1]).remove();
+    var temp = $("#sol_validations").val().split(",");
+    var new_temp="";
+    for(x in temp){
+       alert(temp[x]);
+       if(temp[x] == to_remove || temp[x]=="")
+          continue;
+       new_temp = new_temp+","+temp[x];
+    }
+    $("#sol_validations").val(new_temp); 
+    
+  });
+  
+  $("#les-instruction-label").click(function(){
+    $("#les-instruction").slideToggle("slow");
+    $("#les-tips").slideToggle("slow");
+  });
+  
+  $("#les-tips-label").click(function(){
+    $("#les-instruction").slideToggle("slow");
+    $("#les-tips").slideToggle("slow");
+  });
+  
+});
+</script>
+  <div class="editor">
+    <%= f.label :solution %><br/>
+    <%= f.text_area :solution, :placeholder=>"Write the solution here" %> 
+  </div>
+  <div class="validation">  
+    <%= hidden_field_tag :sol_validations %>
+    <ul id="to-populate">
+    </ul>
+    <button id="validate" type="button">Add Validation</button>
+    <p>select text to add validation</p>
+  </div>
+   
+ 
+
+
+
+
+

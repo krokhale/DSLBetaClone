@@ -7,9 +7,9 @@
     </td>
     <% if has_permissions_on?('course','c') %>
       <td class="sidebar round">
-         <%= link_to 'New Lesson?',new_lesson_path %><br/>OR<br/>
+         <%= link_to 'New Lesson?',new_lcontent_path %><br/>OR<br/>
          Import lessons<br/>
-         <%= form_tag import_products_path, multipart: true do %>
+         <%= form_tag import_lcontents_path, multipart: true do %>
             <%= file_field_tag :file %>
             <%= submit_tag "Import" %>
          <% end %>
