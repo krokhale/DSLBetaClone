@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
    
   
  #asscociations with other models
- 
+  has_many :authentications, :dependent => :destroy
   has_many :microposts, :dependent => :destroy
   
   has_many :coursecreations,:dependent=>:destroy #this deletes only the associations but not asscoiated objects
@@ -54,12 +54,21 @@ class User < ActiveRecord::Base
  
   validates :password, :presence => true,
                        :confirmation => true,
-                       :length => {:within => 6..40} 
+                       :length => {:within => 6..40}, :if => :password_required? 
                        
   #  validates :role, :presence => true
                       
   before_create :encrypt_password
   before_save :encrypt_password, :if => :skip
+  
+  def password_required?
+    (authentications.empty? || !password.blank?)
+  end
+  
+  def apply_omniauth(omniauth)
+    #self.email = omniauth['user_info']['email'] if email.blank?
+    authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  end
   
   def has_password?(submitted_password)
     #compare encrypted_password with encrypted version of submite password

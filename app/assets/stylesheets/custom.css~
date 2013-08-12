@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #cff;
+  background: #ccc;
 }
 
 header {
@@ -334,6 +334,7 @@ div.editor{
 div.validation{
   
   height:50%;
+  overflow:auto;
 }
 
 div.instruction-tips #les-tips{

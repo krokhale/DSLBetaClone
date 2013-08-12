@@ -1,0 +1,7 @@
+<h1>Signup</h1>
+
+<%= form_tag controller: "authentications", action: "create", method: "post" %>
+  <%= label_tag(:email, "email:") %>
+  <%= text_field_tag(:email) %>
+  <%= submit_tag("save") %>
+<% end %> 

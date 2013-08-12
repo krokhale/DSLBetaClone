@@ -1,7 +1,9 @@
 SampleApp::Application.routes.draw do
  
+  resources :authentications
   get 'password_resets/new'
-
+  match 'auth/:provider/callback', to: 'authentications#omnisetup'
+  match 'auth/failure', to: redirect('/')
   resources :courses
   resources :coursemods
   resources :password_resets
