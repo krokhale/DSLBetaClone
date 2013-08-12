@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130808193805) do
+ActiveRecord::Schema.define(:version => 20130812185959) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -65,13 +65,8 @@ ActiveRecord::Schema.define(:version => 20130808193805) do
 
   create_table "lessons", :force => true do |t|
     t.string   "name"
-    t.text     "description"
-    t.text     "instructions"
-    t.text     "solution"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.text     "tips"
-    t.text     "messages"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "microposts", :force => true do |t|

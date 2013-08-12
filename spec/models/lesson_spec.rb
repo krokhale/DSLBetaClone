@@ -2,15 +2,10 @@
 #
 # Table name: lessons
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)
-#  description  :text
-#  instructions :text
-#  solution     :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  tips         :text
-#  messages     :text
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 require 'spec_helper'
