@@ -2,7 +2,7 @@
 // function to get the selected content . works fine in firefox and IE
 function getSel()
 {
-var textarea = document.getElementById("lesson_solution");
+var textarea = document.getElementById("lcontent_solution");
 var start = textarea.selectionStart;
 var end = textarea.selectionEnd;
 var sel = textarea.value.substring(start, end);
@@ -24,7 +24,7 @@ $(document).ready(function(){
      }
     }
  
-  $("#lesson_solution").select(function(){
+  $("#lcontents_solution").select(function(){
     selected = getSel();
     alert(selected);
   });

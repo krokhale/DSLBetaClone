@@ -2,7 +2,7 @@
 // function to get the selected content . works fine in firefox and IE
 function getSel()
 {
-var textarea = document.getElementById("lcontent_solution");
+var textarea = document.getElementById("lesson_solution");
 var start = textarea.selectionStart;
 var end = textarea.selectionEnd;
 var sel = textarea.value.substring(start, end);
@@ -24,7 +24,7 @@ $(document).ready(function(){
      }
     }
  
-  $("#lcontent_solution").select(function(){
+  $("#lesson_solution").select(function(){
     selected = getSel();
     alert(selected);
   });
@@ -81,21 +81,3 @@ $(document).ready(function(){
   
 });
 </script>
-  <div class="editor">
-    <%= f.label :solution %><br/>
-    <%= f.text_area :solution, :placeholder=>"Write the solution here" %> 
-  </div>
-  <div class="validation">  
-    <%= hidden_field_tag :sol_validations %>
-    <ul id="to-populate">
-    </ul>
-    <button id="validate" type="button">Add Validation</button>
-    <p>select text to add validation</p>
-  </div>
-   
- 
-
-
-
-
-
