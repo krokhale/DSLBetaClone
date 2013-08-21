@@ -44,7 +44,7 @@ class AuthenticationsController < ApplicationController
     def user_save_redirect(omniauth,email)
       user = User.new(:name => omniauth['info']['name'],:email => email,:role=>"c_creator")
       user.apply_omniauth(omniauth) 
-      user.save!
+      if user.save
         user = User.find_by_email(email)
         user.confirm_user
         flash[:success] = "Authentication successful."
@@ -52,6 +52,10 @@ class AuthenticationsController < ApplicationController
         session[:permissions] = Authorization.get_permissions(user)
         sign_in(user, params[:remember_me])
         redirect_back_or current_user
+      else
+        flash[:notice] = "Email already taken"
+        redirect_to authentications_url
+      end
     end
 
 
