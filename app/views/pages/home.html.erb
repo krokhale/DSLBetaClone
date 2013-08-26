@@ -20,12 +20,26 @@
         </tr>
       </table>
     <% else %>
-      <h1>Home </h1> 
-      <p>This is the home page for the
-      <a href="http://railsbridgeboston.org"> ruby on rails tutorial</a>
-      sample application      
-      </p> 
-      <%= link_to "Sign up now!", signup_path, :class=>"signup_button round" %>
+        <div class="jumbotron">
+          <div class="container">
+            <h1  style='font-size:200px;color:#d9534f;text-shadow:0 1px 2px #191A1B, 0 1px 0 #191A1B'>
+              <span class="glyphicon glyphicon-cloud" style='vertical-align:middle'></span>
+              <span  style='font-size:100px;'> Data Skills Lab</span>
+
+            </h1>
+            <p style='min-height:100px;font-size:50px;color:#888'>Learn to Code Online...</p>
+            <p>
+              <%= link_to "Sign up now!", signup_path, :class=>"signup_button round btn btn-default btn-lg", :style=>'width:30%' %>
+              <!--<a class="btn btn-primary btn-lg" href='/more'>Learn more</a>-->
+            </p>
+          </div>
+        </div>
+
+      <!--<p>This is the home page for the-->
+      <!--<a href="http://railsbridgeboston.org"> ruby on rails tutorial</a>-->
+      <!--sample application      -->
+      <!--</p> -->
+
     <% end %>
     
      

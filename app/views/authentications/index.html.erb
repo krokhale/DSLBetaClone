@@ -1,4 +1,6 @@
-<h3>Signin</h3>
+
+
+<!--<h3>Signin</h3>-->
 
 <% if @authentications %>
   <% unless @authentications.empty? %>
@@ -17,26 +19,60 @@
   <% end %>
   <p><strong>Add another service to sign in with:</strong></p>
 <% else %>
-  <p><strong>Sign in through one of these services:</strong></p>
+  <!--<p><strong>Sign in through one of these services:</strong></p>-->
+    <div class="jumbotron" style=''>
+      <div class="container">
+        <h1 style='color:#666'>
+          <span class="icon-signout"></span>
+          Sign in
+        </h1>
+        <p>Sign in through one of these services</p>
+        <ul style='list-style-type:none;background:#f9f9f9;border:1px solid #eee;padding:1%'>
+          <li style='display:inline-block;width:25%;text-align:center'>
+            <a href="/auth/twitter" class="auth_provider" style='text-decoration:none;color:#444'>
+              <span class="icon-twitter" style='vertical-align:middle;font-size:85px'></span>
+            </a>
+          </li>
+          <li style='display:inline-block;width:25%;text-align:center'>
+            <a href="/auth/facebook" class="auth_provider" style='text-decoration:none;color:#444'>
+              <span class="icon-facebook" style='vertical-align:middle;font-size:85px'></span>
+            </a>
+          </li>
+          <li style='display:inline-block;width:25%;text-align:center'>
+            <a href="/auth/google_oauth2" class="auth_provider" style='text-decoration:none;color:#444'>
+              <span class="icon-google-plus" style='vertical-align:middle;font-size:85px'></span>
+            </a>
+          </li>
+          <li style='display:inline-block;width:20%;text-align:center'>
+            <a href="/auth/linkedin" class="auth_provider" style='text-decoration:none;color:#444'>
+              <span class="icon-linkedin" style='vertical-align:middle;font-size:85px'></span>
+            </a>
+          </li>
+        </ul>
+
+        <p>Don't want to use these services? <%= link_to 'Sign in', signin_path %> or <%= link_to 'Sign up', signup_path %> with a password.</p>
+      </div>
+    </div>
+
 <% end %>
 
-<a href="/auth/twitter" class="auth_provider">
-  <%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter" %>
-  Twitter
-</a>
-<a href="/auth/facebook" class="auth_provider">
-  <%= image_tag "facebook_64.png", :size => "64x64", :alt => "Facebook" %>
-  Facebook
-</a>
-<a href="/auth/google_oauth2" class="auth_provider">
-  <%= image_tag "google_64.png", :size => "64x64", :alt => "Google" %>
-  Google
-</a>
-<a href="/auth/linkedin" class="auth_provider">
-  <%= image_tag "linkedin_64.png", :size => "64x64", :alt => "LinkedIn" %>
-  LinkedIn
-</a>
-<p>Dint want to use the services?<%= link_to 'Sign in', signin_path %> or <%= link_to 'Sign up', signup_path %> with password</p>
-<div class="clear"></div>
+<!--<a href="/auth/twitter" class="auth_provider">-->
+  <!--<%= image_tag "twitter_64.png", :size => "64x64", :alt => "Twitter" %>-->
+  <!--Twitter-->
+<!--</a>-->
+<!--<a href="/auth/facebook" class="auth_provider">-->
+  <!--<%= image_tag "facebook_64.png", :size => "64x64", :alt => "Facebook" %>-->
+  <!--Facebook-->
+<!--</a>-->
+<!--<a href="/auth/google_oauth2" class="auth_provider">-->
+  <!--<%= image_tag "google_64.png", :size => "64x64", :alt => "Google" %>-->
+  <!--Google-->
+<!--</a>-->
+<!--<a href="/auth/linkedin" class="auth_provider">-->
+  <!--<%= image_tag "linkedin_64.png", :size => "64x64", :alt => "LinkedIn" %>-->
+  <!--LinkedIn-->
+<!--</a>-->
+<!--<p>Dint want to use the services?<%= link_to 'Sign in', signin_path %> or <%= link_to 'Sign up', signup_path %> with password</p>-->
+<!--<div class="clear"></div>-->
 
 
